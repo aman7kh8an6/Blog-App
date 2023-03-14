@@ -1,5 +1,6 @@
 import { createBrowserRouter,RouterProvider,Route,Outlet } from "react-router-dom";
-import { createContext, useState } from 'react';
+import { useState } from 'react';
+import { LoginContext } from './context/AuthContext' 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Write from "./pages/Write";
@@ -31,12 +32,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-export const LoginContext = createContext();
-
 function App() {
-  const [loggedIn,setLoggedIn] = useState(false);
+  const [currentUser,setCurrentUser] = useState({isLoggedIn : false, userId : "", username: "",email : "", profileImg : ""});
   return (
-    <LoginContext.Provider value = {[loggedIn,setLoggedIn]}>
+    <LoginContext.Provider value = {{currentUser,setCurrentUser}}>
       <div className="app">
         <div className="container">
           <RouterProvider router={router} />

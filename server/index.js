@@ -2,6 +2,7 @@ import express from 'express';
 import mysql from 'mysql';
 import cors from 'cors'
 
+
 const app = express();
 app.use(cors())
 app.use(express.json())
@@ -59,6 +60,21 @@ app.get('/',(req,res) =>{
         res.send(result)
     });
 })
+
+// Post
+app.post('/write', (req,res) =>{
+    const post_detail = req.body.createPost;
+    console.log(post_detail);
+    var sql = "insert into blog.posts (user_id, title, content, category, images ) values ?"
+    var values = [ [post_detail.user_id, post_detail.title, post_detail.content, post_detail.category, post_detail.file] ];
+    
+    con.query(sql, [values], (err,result)=>{
+        if (err) throw err; 
+        console.log("Post Inserted: " + result.affectedRows);
+        res.send(result);
+    })
+});
+
 app.listen(PORT, ()=>{
     console.log("Hi");
 })

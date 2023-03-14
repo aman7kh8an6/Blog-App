@@ -1,24 +1,24 @@
-import {useState, useContext, useEffect} from 'react'
+import {useState, useContext, useEffect } from 'react'
 import Axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import '../style.css';
-import { LoginContext } from '../App';
+import { LoginContext } from '../context/AuthContext' 
 
 const Login = () => {
   const [username, setusername] = useState("");
   const [pwd, setpwd] = useState("");
   const [error, seterror] = useState(false);
-  const [loggedIn, setLoggedIn] = useContext(LoginContext);
-
-  function getResponse(){
-    Axios.post('http://localhost:5000/login',{
+  const {currentUser,setCurrentUser} = useContext(LoginContext);
+  const navigate = useNavigate();
+  const getResponse = async () =>{
+    await Axios.post('http://localhost:5000/login',{
       username: username,
       password: pwd
     }).then(function(res){
       if(typeof res.data == "object"){
-        return res.data;
         console.log(res.data);
-        
+        setCurrentUser({isLoggedIn : true, userId : res.data[0].user_id ,username : res.data[0].username, email: res.data[0].email, profileImg : "https://thumbs.dreamstime.com/z/businessman-icon-image-male-avatar-profile-vector-glasses-beard-hairstyle-179728610.jpg"});
+        navigate('/');
       }else{
         console.log("User not authorized!!");
         return "User not Authorize!!"
@@ -31,7 +31,7 @@ const Login = () => {
 
   const handleSubmit = (e)=> {
     e.preventDefault();
-    // let result = getResponse();
+    getResponse();
     console.log('from here');
   }
 
