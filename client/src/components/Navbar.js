@@ -12,10 +12,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const {currentUser,setCurrentUser} = useContext(LoginContext);
 
-  useEffect(() => {
-    console.log(currentUser.isLoggedIn);
-  }, []);
-
 const LogOut = () =>{
   setCurrentUser({isLoggedIn : false, userId : 0, username: "",email : "", profileImg : ""});
   navigate('\login');
@@ -23,10 +19,13 @@ const LogOut = () =>{
 const handleWrite = () =>{
   navigate('\write');
 }
+const handleLogo =() =>{
+  navigate('/');
+}
   return (
     <div className='navbar'>
       <div className='navbar__body'>
-        <img className="navbar__img left" src={logo1} />
+        <img className="navbar__img left" onClick={handleLogo} src={logo1} />
         <Box sx={{ display: 'flex', alignItems: 'flex-end', color: 'text.disabled', borderRadius:8, backgroundColor: '#EFEBEA', justifyContent: 'space-between', alignItems:'center'  }}>
           <SearchIcon sx={{ color: 'action.active', ml: 1, my: 0 }} />
           <TextField placeholder="Search Here" variant="standard" InputProps={{ disableUnderline: true, sx:{ "& input":{textAlign: "start"}, width: 150} }} />

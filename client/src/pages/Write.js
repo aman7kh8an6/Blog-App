@@ -7,10 +7,7 @@ import { LoginContext } from "../context/AuthContext";
 
 const Write = () => {
   const {currentUser} = useContext(LoginContext);
-  const state = useLocation().state;
-  useEffect(() => {
-    console.log(currentUser);
-  }, []);
+  
   const [createPost, setCreatePost] = useState({
     user_id : currentUser.userId,
     title : "",
@@ -20,13 +17,11 @@ const Write = () => {
   });
  
   const [flag, setFlag] = useState(false);
- 
+  const [Image, setImage] = useState('');
   const navigate = useNavigate()
   
   useEffect(() => {
     if(flag === true){
-      // setCreatePost(prev => ({...prev,user_id: '123', title: titl, file: file, content: desc, category : cat}));
-      
       console.log(createPost);
       Axios.post('http://localhost:5000/write',{
         createPost : createPost
@@ -59,7 +54,9 @@ const Write = () => {
   const handleContent = (text) =>{
     setCreatePost({...createPost, content : text});
   }
-
+  const handleImage = (e) =>{
+    setCreatePost({...createPost, file : e.target.value});  
+  }
   return (
     <div className="add">
       <div className="content">
@@ -87,17 +84,13 @@ const Write = () => {
             <b>Visibility: </b> Public
           </span>
           <input
-            style={{ display: "none" }}
-            type="file"
+            // style={{ display: "none" }}
+            type="text"
             id="file"
             name=""
-            onChange={(e) => {
-              console.log(e.target.files[0]);    
-              setCreatePost({...createPost, file : URL.createObjectURL(e.target.files[0])})}}
+            placeholder="Paste Image URL..."
+            onChange={(e) => {handleImage(e)}}
           />
-          <label className="file" htmlFor="file">
-            Upload Image
-          </label>
           <div className="buttons">
             <button className="first_button">Save as a draft</button>
             <button className="second_button" onClick={handleClick}>Publish</button>
