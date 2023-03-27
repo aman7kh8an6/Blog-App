@@ -106,7 +106,7 @@ h1,h2,p{
   padding: 5em;
 }
 
-.content{
+.write_content{
   flex: 5;
   display: flex;
   flex-direction: column;
@@ -120,7 +120,7 @@ h1,h2,p{
 }
 
 .editorContainer {
-  height: 300px;
+  height: 400px;
   overflow: scroll;
   border: 1px solid lightgray;
 }
@@ -297,4 +297,7 @@ form {
 
 .tags_post{
   display: flex;
+}
+.tag_title{
+  
 }

@@ -59,7 +59,7 @@ const Write = () => {
   }
   return (
     <div className="add">
-      <div className="content">
+      <div className="write_content">
         <input className="title__input"
           type="text"
           placeholder="Title"

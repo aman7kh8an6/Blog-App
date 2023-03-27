@@ -1,12 +1,12 @@
 import express from 'express';
 import mysql from 'mysql';
 import cors from 'cors'
-import bufferImage from 'buffer-image';
 
 const app = express();
 app.use(cors())
 app.use(express.json())
 const PORT = 5000;
+const BASE_URL = process.env.BASE_URL
 
 var con = mysql.createConnection({
     host: "localhost",
